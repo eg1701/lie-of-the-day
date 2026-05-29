@@ -186,6 +186,35 @@ export default function Home() {
             </div>
           )}
 
+          {/* About Section */}
+          <section className="about-section">
+            <h2 className="about-title">About Trump Lie of the Day</h2>
+            <p className="about-text">
+              Trump Lie of the Day documents statements made by Donald Trump that have been independently
+              assessed and rated by established, nonpartisan fact-checking organizations, including{" "}
+              <a href="https://www.politifact.com/personalities/donald-trump/" target="_blank" rel="noopener noreferrer" style={{ color: "#4a6fa5" }}>PolitiFact</a>,{" "}
+              <a href="https://www.factcheck.org/person/donald-trump/" target="_blank" rel="noopener noreferrer" style={{ color: "#4a6fa5" }}>FactCheck.org</a>, and the{" "}
+              <a href="https://www.washingtonpost.com/news/fact-checker/" target="_blank" rel="noopener noreferrer" style={{ color: "#4a6fa5" }}>Washington Post Fact Checker</a>.
+            </p>
+            <p className="about-text">
+              All content presented on this site is sourced from publicly available fact-checks and
+              supporting documentation published by third-party organizations. This site does not
+              originate, create, or independently verify any factual claims. Each entry is attributed
+              to its source, and visitors are encouraged to follow the links and review the underlying
+              evidence directly.
+            </p>
+            <p className="about-text">
+              This site is intended solely for educational and informational purposes, to promote
+              transparency and an informed electorate regarding statements made by public officials.
+              Nothing on this site should be construed as legal advice, defamatory, or as an expression
+              of personal opinion beyond the curated presentation of third-party fact-checks.
+            </p>
+            <p className="about-text">
+              Democracy depends on an informed citizenry. Visitors are encouraged to review all
+              underlying sources and draw their own conclusions.
+            </p>
+          </section>
+
           {/* Footer */}
           <footer className="footer">
             <p className="footer-text">
@@ -392,6 +421,33 @@ export default function Home() {
         .refresh-btn:hover {
           border-color: var(--accent);
           color: var(--accent);
+        }
+        .about-section {
+          margin-top: 72px;
+          padding: 36px 40px;
+          background: rgba(0, 40, 104, 0.1);
+          border: 1px solid rgba(0, 40, 104, 0.25);
+          border-left: 3px solid #002868;
+          border-radius: 16px;
+        }
+        .about-title {
+          font-family: 'Playfair Display', Georgia, serif;
+          font-size: 1.3rem;
+          font-weight: 700;
+          color: #e8eaf0;
+          margin-bottom: 20px;
+          letter-spacing: 0.02em;
+        }
+        .about-text {
+          font-size: 0.88rem;
+          color: #8899bb;
+          line-height: 1.85;
+          margin-bottom: 14px;
+        }
+        .about-text:last-child {
+          margin-bottom: 0;
+          color: #aabbdd;
+          font-style: italic;
         }
         .footer {
           margin-top: 72px;
