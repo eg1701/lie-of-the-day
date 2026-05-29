@@ -4,8 +4,9 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { getDaysUntilElection, getTopicForDay } from "../../lib/constants";
 
-// Simple in-memory cache: stores { date, data } so same lie is served all day
+// Cache: stores today's lie and a history of shown lies to avoid repeats
 let cache = null;
+let shownQuotes = [];
 
 function todayKey() {
   return new Date().toISOString().slice(0, 10); // "2026-05-29"
@@ -38,7 +39,7 @@ export default async function handler(req, res) {
         {
           role: "user",
           content: `Days until 2028 election: ${daysLeft}. Topic: ${topic.name}
-
+${shownQuotes.length > 0 ? `\nIMPORTANT: Do NOT repeat any of these already-shown quotes:\n${shownQuotes.map((q, i) => `${i + 1}. "${q}"`).join("\n")}\nPick a completely different documented falsehood.\n` : ""}
 Return a JSON object with exactly these fields:
 {
   "quote": "The exact or close paraphrase of something false Trump actually said on this topic",
@@ -66,8 +67,16 @@ Return only the JSON object. No markdown, no backticks.`,
       generatedAt: new Date().toISOString(),
     };
 
-    // Cache for today
-    cache = { date: today, data: payload };
+    // Track shown quotes to avoid repeats (keep last 10)
+    if (lieData.quote) {
+      shownQuotes.push(lieData.quote);
+      if (shownQuotes.length > 10) shownQuotes.shift();
+    }
+
+    // Only cache the first lie of the day (not refreshes)
+    if (!forceRefresh) {
+      cache = { date: today, data: payload };
+    }
 
     res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
     res.setHeader("X-Cache", "MISS");
