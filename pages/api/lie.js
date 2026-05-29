@@ -31,7 +31,7 @@ export default async function handler(req, res) {
   try {
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     const message = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-sonnet-4-5",
       max_tokens: 1000,
       system: `You are a political fact-checker specializing in documenting false or misleading statements made by Donald Trump during his political career and presidencies. You present verified, documented falsehoods with citations. Be concise, factual, and cite real documented instances only. Never invent quotes — only reference statements that were actually fact-checked and documented by reputable sources like PolitiFact, Washington Post Fact Checker, or FactCheck.org. Return ONLY valid JSON with no markdown or code fences.`,
       messages: [
