@@ -73,7 +73,7 @@ export default function Countdown({ accent }) {
         width: "100%",
         textAlign: "center",
         fontSize: "11px",
-        color: "#444",
+        color: "#aabbdd",
         letterSpacing: "0.25em",
         marginTop: "4px",
       }}>
