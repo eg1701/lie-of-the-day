@@ -196,6 +196,12 @@ export default function Home() {
               Democracy requires an informed citizenry.
             </p>
             <div className="footer-tagline">ELECTION DAY · NOVEMBER 7, 2028</div>
+            <div className="footer-contact">
+              Questions or tips?{" "}
+              <a href="mailto:contact@trumplieoftheday.com" style={{ color: "#BF0A30" }}>
+                contact@trumplieoftheday.com
+              </a>
+            </div>
           </footer>
         </main>
       </div>
@@ -400,6 +406,11 @@ export default function Home() {
           max-width: 500px;
           margin: 0 auto;
           font-style: italic;
+        }
+        .footer-contact {
+          margin-top: 16px;
+          font-size: 12px;
+          color: #8899bb;
         }
         .footer-tagline {
           margin-top: 16px;
