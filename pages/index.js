@@ -52,7 +52,7 @@ export default function Home() {
     if (topic) fetchLie();
   }, [topic]);
 
-  const accent = lie?.topicColor || topic?.color || "#e05252";
+  const accent = "#BF0A30"; // Republican red — dominant accent
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://lieoftheday.com";
   const ogTitle = lie
@@ -190,9 +190,9 @@ export default function Home() {
           <footer className="footer">
             <p className="footer-text">
               All statements documented by independent fact-checkers including{" "}
-              <a href="https://www.politifact.com/personalities/donald-trump/" target="_blank" rel="noopener noreferrer" style={{ color: "#666" }}>PolitiFact</a>,{" "}
-              <a href="https://www.washingtonpost.com/news/fact-checker/" target="_blank" rel="noopener noreferrer" style={{ color: "#666" }}>Washington Post Fact Checker</a>, and{" "}
-              <a href="https://www.factcheck.org/person/donald-trump/" target="_blank" rel="noopener noreferrer" style={{ color: "#666" }}>FactCheck.org</a>.
+              <a href="https://www.politifact.com/personalities/donald-trump/" target="_blank" rel="noopener noreferrer" style={{ color: "#4a6fa5" }}>PolitiFact</a>,{" "}
+              <a href="https://www.washingtonpost.com/news/fact-checker/" target="_blank" rel="noopener noreferrer" style={{ color: "#4a6fa5" }}>Washington Post Fact Checker</a>, and{" "}
+              <a href="https://www.factcheck.org/person/donald-trump/" target="_blank" rel="noopener noreferrer" style={{ color: "#4a6fa5" }}>FactCheck.org</a>.
               Democracy requires an informed citizenry.
             </p>
             <div className="footer-tagline">ELECTION DAY · NOVEMBER 7, 2028</div>
@@ -204,8 +204,8 @@ export default function Home() {
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
-          background: #09090e;
-          color: #e0d8cc;
+          background: #0a0d1a;
+          color: #e8eaf0;
           font-family: 'Source Serif 4', 'Georgia', serif;
           -webkit-font-smoothing: antialiased;
         }
@@ -261,7 +261,7 @@ export default function Home() {
           font-size: 10px;
           letter-spacing: 0.4em;
           text-transform: uppercase;
-          color: #555;
+          color: #4a6fa5;
           margin-bottom: 20px;
         }
         .title {
@@ -271,9 +271,9 @@ export default function Home() {
           line-height: 0.95;
           margin-bottom: 0;
         }
-        .title-one  { color: #e0d8cc; }
-        .title-lie  { transition: color 0.8s ease; }
-        .title-per  { color: #888; font-weight: 400; font-style: italic; font-size: 0.65em; }
+        .title-one  { color: #e8eaf0; }
+        .title-lie  { color: #BF0A30; }
+        .title-per  { color: #002868; font-weight: 400; font-style: italic; font-size: 0.65em; }
         .rule {
           width: 48px;
           height: 3px;
@@ -282,7 +282,7 @@ export default function Home() {
         }
         .subtitle {
           font-size: 1rem;
-          color: #777;
+          color: #8899bb;
           max-width: 420px;
           margin: 0 auto;
           line-height: 1.8;
@@ -306,9 +306,9 @@ export default function Home() {
           transition: all 0.8s ease;
         }
         .card {
-          background: rgba(255,255,255,0.025);
-          border: 1px solid rgba(255,255,255,0.07);
-          border-top: 3px solid;
+          background: rgba(0, 40, 104, 0.15);
+          border: 1px solid rgba(0, 40, 104, 0.35);
+          border-top: 3px solid #BF0A30;
           border-radius: 16px;
           overflow: hidden;
           min-height: 300px;
@@ -345,7 +345,7 @@ export default function Home() {
           text-align: center;
         }
         .error-msg {
-          color: #e05252;
+          color: #BF0A30;
           margin-bottom: 20px;
           font-size: 0.95rem;
         }
@@ -390,12 +390,12 @@ export default function Home() {
         .footer {
           margin-top: 72px;
           padding-top: 32px;
-          border-top: 1px solid rgba(255,255,255,0.05);
+          border-top: 1px solid rgba(0, 40, 104, 0.3);
           text-align: center;
         }
         .footer-text {
           font-size: 12px;
-          color: #444;
+          color: #4a6fa5;
           line-height: 1.9;
           max-width: 500px;
           margin: 0 auto;
@@ -404,7 +404,7 @@ export default function Home() {
         .footer-tagline {
           margin-top: 16px;
           font-size: 10px;
-          color: #333;
+          color: #002868;
           letter-spacing: 0.3em;
         }
         @media (max-width: 480px) {
