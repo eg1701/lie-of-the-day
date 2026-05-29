@@ -4,8 +4,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { getDaysUntilElection, getTopicForDay } from "../../lib/constants";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
 // Simple in-memory cache: stores { date, data } so same lie is served all day
 let cache = null;
 
@@ -31,6 +29,7 @@ export default async function handler(req, res) {
   const topic = getTopicForDay(daysLeft);
 
   try {
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
     const message = await client.messages.create({
       model: "claude-sonnet-4-20250514",
       max_tokens: 1000,
