@@ -448,6 +448,7 @@ export default function Home() {
           margin-bottom: 0;
           color: #aabbdd;
           font-style: italic;
+          font-size: 0.97rem;
         }
         .footer {
           margin-top: 72px;
