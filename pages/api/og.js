@@ -1,59 +1,90 @@
 // pages/api/og.js
-// Generates a dynamic Open Graph image for social sharing
+// Generates a dynamic OG image as PNG using @vercel/og
 
-export default function handler(req, res) {
-  const { quote, topic, rating, days } = req.query;
+import { ImageResponse } from "@vercel/og";
 
-  const safeQuote = (quote || "One documented Trump falsehood per day.").slice(0, 120);
-  const safeTopic = topic || "Politics";
-  const safeRating = rating || "FALSE";
-  const safeDays = days || "886";
+export const config = {
+  runtime: "edge",
+};
 
-  const svg = `
-<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0a0d1a"/>
-      <stop offset="100%" stop-color="#0d1530"/>
-    </linearGradient>
-  </defs>
+export default function handler(req) {
+  const { searchParams } = new URL(req.url);
+  const quote = (searchParams.get("quote") || "One documented Trump falsehood per day.").slice(0, 120);
+  const topic = searchParams.get("topic") || "Politics";
+  const rating = searchParams.get("rating") || "FALSE";
+  const days = searchParams.get("days") || "886";
 
-  <!-- Background -->
-  <rect width="1200" height="630" fill="url(#bg)"/>
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          width: "1200px",
+          height: "630px",
+          background: "linear-gradient(135deg, #0a0d1a 0%, #0d1530 100%)",
+          display: "flex",
+          flexDirection: "column",
+          padding: "0",
+          fontFamily: "Georgia, serif",
+          position: "relative",
+        }}
+      >
+        {/* Red top bar */}
+        <div style={{ width: "1200px", height: "10px", background: "#BF0A30", display: "flex" }} />
 
-  <!-- Red top bar -->
-  <rect width="1200" height="8" fill="#BF0A30"/>
+        {/* Left red accent */}
+        <div style={{
+          position: "absolute",
+          left: "60px",
+          top: "80px",
+          width: "6px",
+          height: "470px",
+          background: "#BF0A30",
+          borderRadius: "3px",
+          display: "flex",
+        }} />
 
-  <!-- Blue bottom bar -->
-  <rect y="622" width="1200" height="8" fill="#002868"/>
+        <div style={{ padding: "40px 90px", display: "flex", flexDirection: "column", flex: 1 }}>
+          {/* Days */}
+          <div style={{ fontSize: "26px", color: "#4a6fa5", letterSpacing: "3px", marginBottom: "20px", display: "flex" }}>
+            ⏳ {days} DAYS UNTIL 2028 ELECTION
+          </div>
 
-  <!-- Left red accent bar -->
-  <rect x="60" y="80" width="6" height="470" fill="#BF0A30" rx="3"/>
+          {/* Title */}
+          <div style={{ fontSize: "80px", fontWeight: "900", color: "#BF0A30", lineHeight: 1, marginBottom: "20px", display: "flex" }}>
+            LIE OF THE DAY
+          </div>
 
-  <!-- Days countdown -->
-  <text x="90" y="140" font-family="Georgia, serif" font-size="28" fill="#4a6fa5" letter-spacing="3">⏳ ${safeDays} DAYS UNTIL 2028 ELECTION</text>
+          {/* Topic | Rating */}
+          <div style={{ fontSize: "28px", color: "#8899bb", marginBottom: "20px", display: "flex" }}>
+            {topic}  ·  {rating}
+          </div>
 
-  <!-- Title -->
-  <text x="90" y="220" font-family="Georgia, serif" font-size="72" font-weight="900" fill="#BF0A30">LIE OF THE DAY</text>
+          {/* Divider */}
+          <div style={{ width: "1020px", height: "2px", background: "#002868", opacity: 0.6, marginBottom: "24px", display: "flex" }} />
 
-  <!-- Topic | Rating -->
-  <text x="90" y="280" font-family="Georgia, serif" font-size="28" fill="#8899bb">${safeTopic}  |  ${safeRating}</text>
+          {/* Quote */}
+          <div style={{
+            fontSize: "30px",
+            color: "#e8eaf0",
+            fontStyle: "italic",
+            lineHeight: 1.5,
+            flex: 1,
+            display: "flex",
+            alignItems: "flex-start",
+          }}>
+            "{quote}{quote.length >= 120 ? "…" : ""}"
+          </div>
 
-  <!-- Divider -->
-  <rect x="90" y="300" width="1020" height="2" fill="#002868" opacity="0.5"/>
+          {/* Domain */}
+          <div style={{ fontSize: "24px", color: "#4a6fa5", display: "flex" }}>
+            trumplieoftheday.com
+          </div>
+        </div>
 
-  <!-- Quote -->
-  <foreignObject x="90" y="320" width="1020" height="220">
-    <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: Georgia, serif; font-size: 32px; color: #e8eaf0; line-height: 1.5; font-style: italic;">
-      “${safeQuote}${safeQuote.length >= 120 ? '…' : ''}”
-    </div>
-  </foreignObject>
-
-  <!-- Domain -->
-  <text x="90" y="590" font-family="Georgia, serif" font-size="24" fill="#4a6fa5">trumplieoftheday.com</text>
-</svg>`;
-
-  res.setHeader("Content-Type", "image/svg+xml");
-  res.setHeader("Cache-Control", "public, max-age=86400");
-  res.send(svg);
+        {/* Blue bottom bar */}
+        <div style={{ width: "1200px", height: "10px", background: "#002868", display: "flex" }} />
+      </div>
+    ),
+    { width: 1200, height: 630 }
+  );
 }
