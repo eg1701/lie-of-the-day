@@ -42,12 +42,20 @@ ${emoji} ${topic} | ${rating}
 📋 Source: ${source}
 🔗 ${siteUrl}`;
 
+    // Debug: log key lengths to verify they're being read
+    console.log("Key lengths:", {
+      appKey: process.env.TWITTER_API_KEY?.length,
+      appSecret: process.env.TWITTER_API_SECRET?.length,
+      accessToken: process.env.TWITTER_ACCESS_TOKEN?.length,
+      accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET?.length,
+    });
+
     // Post to X
     const client = new TwitterApi({
-      appKey: process.env.TWITTER_API_KEY,
-      appSecret: process.env.TWITTER_API_SECRET,
-      accessToken: process.env.TWITTER_ACCESS_TOKEN,
-      accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+      appKey: process.env.TWITTER_API_KEY?.trim(),
+      appSecret: process.env.TWITTER_API_SECRET?.trim(),
+      accessToken: process.env.TWITTER_ACCESS_TOKEN?.trim(),
+      accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET?.trim(),
     });
 
     const result = await client.v2.tweet(tweet);
