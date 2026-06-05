@@ -48,12 +48,12 @@ ${emoji} ${topic} | ${rating}
 📋 Source: ${source}
 🔗 ${siteUrl}`;
 
-    // Debug: log key lengths to verify they're being read
-    console.log("Key lengths:", {
-      appKey: process.env.TWITTER_API_KEY?.length,
-      appSecret: process.env.TWITTER_API_SECRET?.length,
-      accessToken: process.env.TWITTER_ACCESS_TOKEN?.length,
-      accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET?.length,
+    // Debug: log key previews to verify correct keys are loaded
+    console.log("Key previews:", {
+      appKey: process.env.TWITTER_API_KEY?.slice(0, 6),
+      appSecret: process.env.TWITTER_API_SECRET?.slice(0, 6),
+      accessToken: process.env.TWITTER_ACCESS_TOKEN?.slice(0, 6),
+      accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET?.slice(0, 6),
     });
 
     // Post to X
