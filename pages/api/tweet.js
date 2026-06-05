@@ -41,12 +41,14 @@ export default async function handler(req, res) {
 
     const tweet = `⏳ ${daysLeft} days until the 2028 Presidential Election
 
-${emoji} ${topic} | ${rating}
+${emoji} Today's Topic: ${topic}
+🏷️ Verdict: ${rating}
 
-"${quote}"
+❝${quote}❞
 
-📋 Source: ${source}
-🔗 ${siteUrl}`;
+— ${source}
+
+🔗 ${siteUrl} | #TrumpLie #FactCheck #2028Election`;
 
     // Debug: log key previews to verify correct keys are loaded
     console.log("Key previews:", {
