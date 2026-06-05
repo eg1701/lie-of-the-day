@@ -45,7 +45,7 @@ export default function handler(req, res) {
   <!-- Quote -->
   <foreignObject x="90" y="320" width="1020" height="220">
     <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: Georgia, serif; font-size: 32px; color: #e8eaf0; line-height: 1.5; font-style: italic;">
-      &ldquo;${safeQuote}${safeQuote.length >= 120 ? '…' : ''}&rdquo;
+      “${safeQuote}${safeQuote.length >= 120 ? '…' : ''}”
     </div>
   </foreignObject>
 
