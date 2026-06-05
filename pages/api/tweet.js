@@ -4,11 +4,17 @@
 import { TwitterApi } from "twitter-api-v2";
 
 export default async function handler(req, res) {
-  // Only allow GET (from cron) or POST with secret token
+  // Vercel cron jobs send the CRON_SECRET automatically
   const authHeader = req.headers.authorization;
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  const cronSecret = process.env.CRON_SECRET;
+
+  // Allow if: Vercel cron auth matches, or no secret is set (for testing)
+  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
+    console.log("Auth failed. Header received:", authHeader);
     return res.status(401).json({ error: "Unauthorized" });
   }
+
+  console.log("Auth passed, proceeding to tweet...");
 
   try {
     // Fetch today's lie from our own API
