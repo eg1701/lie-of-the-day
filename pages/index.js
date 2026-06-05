@@ -74,6 +74,8 @@ export default function Home() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={ogTitle} />
         <meta name="twitter:description" content={ogDesc} />
+        <meta name="twitter:image" content={`${siteUrl}/api/og?days=${daysLeft}&topic=${encodeURIComponent(lie?.topic||'')}&rating=${encodeURIComponent(lie?.rating||'')}&quote=${encodeURIComponent(lie?.quote||'Trump Lie of the Day — Counting down to 2028')}`} />
+        <meta property="og:image" content={`${siteUrl}/api/og?days=${daysLeft}&topic=${encodeURIComponent(lie?.topic||'')}&rating=${encodeURIComponent(lie?.rating||'')}&quote=${encodeURIComponent(lie?.quote||'Trump Lie of the Day — Counting down to 2028')}`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link
