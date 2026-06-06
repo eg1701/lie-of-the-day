@@ -15,13 +15,24 @@ const BG_PARTICLES = Array.from({ length: 18 }, (_, i) => ({
   opacity: 0.06 + (i % 4) * 0.03,
 }));
 
-export default function Home() {
+export async function getServerSideProps() {
+  try {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://trumplieoftheday.com";
+    const res = await fetch(`${siteUrl}/api/lie`);
+    const initialLie = await res.json();
+    return { props: { initialLie: initialLie.quote ? initialLie : null } };
+  } catch {
+    return { props: { initialLie: null } };
+  }
+}
+
+export default function Home({ initialLie }) {
   const [daysLeft, setDaysLeft] = useState(null);
   const [topic, setTopic] = useState(null);
-  const [lie, setLie] = useState(null);
+  const [lie, setLie] = useState(initialLie);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [revealed, setRevealed] = useState(false);
+  const [revealed, setRevealed] = useState(!!initialLie);
 
   useEffect(() => {
     const d = getDaysUntilElection();
@@ -49,7 +60,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (topic) fetchLie();
+    if (topic && !initialLie) fetchLie();
   }, [topic]);
 
   const accent = "#BF0A30"; // Republican red — dominant accent
@@ -74,8 +85,10 @@ export default function Home() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={ogTitle} />
         <meta name="twitter:description" content={ogDesc} />
-        <meta name="twitter:image" content={`${siteUrl}/api/og?days=${daysLeft}&topic=${encodeURIComponent(lie?.topic||'')}&rating=${encodeURIComponent(lie?.rating||'')}&quote=${encodeURIComponent(lie?.quote||'Trump Lie of the Day — Counting down to 2028')}`} />
-        <meta property="og:image" content={`${siteUrl}/api/og?days=${daysLeft}&topic=${encodeURIComponent(lie?.topic||'')}&rating=${encodeURIComponent(lie?.rating||'')}&quote=${encodeURIComponent(lie?.quote||'Trump Lie of the Day — Counting down to 2028')}`} />
+        <meta name="twitter:image" content={`${siteUrl}/api/og?days=${daysLeft || ''}&topic=${encodeURIComponent(lie?.topic||'Politics')}&rating=${encodeURIComponent(lie?.rating||'FALSE')}&quote=${encodeURIComponent(lie?.quote||'One documented Trump falsehood per day until the 2028 election.')}`} />
+        <meta property="og:image" content={`${siteUrl}/api/og?days=${daysLeft || ''}&topic=${encodeURIComponent(lie?.topic||'Politics')}&rating=${encodeURIComponent(lie?.rating||'FALSE')}&quote=${encodeURIComponent(lie?.quote||'One documented Trump falsehood per day until the 2028 election.')}`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link
