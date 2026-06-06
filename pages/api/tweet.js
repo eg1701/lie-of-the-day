@@ -39,6 +39,9 @@ export default async function handler(req, res) {
       ? lie.quote.slice(0, maxQuoteLen - 1) + "…"
       : lie.quote;
 
+    const today = new Date().toISOString().slice(0, 10);
+    const tweetUrl = `${siteUrl}?d=${today}`;
+
     const tweet = `⏳ ${daysLeft} days until the 2028 Presidential Election
 
 ${emoji} Today's Topic: ${topic}
@@ -48,7 +51,7 @@ ${emoji} Today's Topic: ${topic}
 
 — ${source}
 
-🔗 ${siteUrl} | #TrumpLie #FactCheck #2028Election`;
+🔗 ${tweetUrl} | #TrumpLie #FactCheck #2028Election`;
 
     // Debug: log key previews to verify correct keys are loaded
     console.log("Key previews:", {
