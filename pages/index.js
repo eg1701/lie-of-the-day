@@ -65,9 +65,10 @@ export default function Home({ initialLie }) {
 
   const accent = "#BF0A30"; // Republican red — dominant accent
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://lieoftheday.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://trumplieoftheday.com";
+  const daysLeftForMeta = daysLeft ?? initialLie?.daysLeft ?? "";
   const ogTitle = lie
-    ? `Lie of the Day — ${daysLeft} days to 2028 · ${lie.topic}`
+    ? `Lie of the Day — ${daysLeftForMeta} days to 2028 · ${lie.topic}`
     : "Lie of the Day — Counting Down to 2028";
   const ogDesc = lie
     ? `"${lie.quote?.slice(0, 120)}${lie.quote?.length > 120 ? "…" : ""}" — ${lie.verdict?.slice(0, 100)}…`
@@ -85,8 +86,8 @@ export default function Home({ initialLie }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={ogTitle} />
         <meta name="twitter:description" content={ogDesc} />
-        <meta name="twitter:image" content={`${siteUrl}/api/og?days=${daysLeft || ''}&topic=${encodeURIComponent(lie?.topic||'Politics')}&rating=${encodeURIComponent(lie?.rating||'FALSE')}&quote=${encodeURIComponent(lie?.quote||'One documented Trump falsehood per day until the 2028 election.')}`} />
-        <meta property="og:image" content={`${siteUrl}/api/og?days=${daysLeft || ''}&topic=${encodeURIComponent(lie?.topic||'Politics')}&rating=${encodeURIComponent(lie?.rating||'FALSE')}&quote=${encodeURIComponent(lie?.quote||'One documented Trump falsehood per day until the 2028 election.')}`} />
+        <meta name="twitter:image" content={`${siteUrl}/api/og?days=${daysLeftForMeta}&topic=${encodeURIComponent(lie?.topic||'Politics')}&rating=${encodeURIComponent(lie?.rating||'FALSE')}&quote=${encodeURIComponent(lie?.quote||'One documented Trump falsehood per day until the 2028 election.')}`} />
+        <meta property="og:image" content={`${siteUrl}/api/og?days=${daysLeftForMeta}&topic=${encodeURIComponent(lie?.topic||'Politics')}&rating=${encodeURIComponent(lie?.rating||'FALSE')}&quote=${encodeURIComponent(lie?.quote||'One documented Trump falsehood per day until the 2028 election.')}`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
